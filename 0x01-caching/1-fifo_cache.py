@@ -44,6 +44,4 @@ class FIFOCache(BaseCaching):
             The value in self.cached_data linked to key.
             None if key or self.cached_data doesn't exist.
         """
-        if key is None or key not in self.cached_data:
-            return None
-        return self.cached_data[key]
+        return self.cached_data.get(key, None)
