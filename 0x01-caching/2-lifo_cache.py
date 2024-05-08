@@ -32,11 +32,9 @@ class LIFOCache(BaseCaching):
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS \
                     and key not in self.cache_data.keys():
-                # if the cache is full and the key is not already in the cache,
-                # discard the least recently used item
-                last_key = next(reversed(self.cache_data))
-                del self.cache_data[last_key]
-                print("DISCARD: {}".format(last_key))
+                 # delete the last item in the dictionary
+                last_key, last_value = self.cache_data.popitem()
+                print("DISCARD: {}". format(last_key))
 
             self.cache_data[key] = item
 
