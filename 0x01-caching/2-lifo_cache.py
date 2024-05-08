@@ -14,8 +14,7 @@ class LIFOCache(BaseCaching):
     """
 
     def __init__(self):
-        """init
-        """
+        """initialize the cache"""
         super().__init__()
         self.cache_data = {}
 
@@ -32,7 +31,7 @@ class LIFOCache(BaseCaching):
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS \
                     and key not in self.cache_data.keys():
-                 # delete the last item in the dictionary
+                # delete the last item in the dictionary
                 last_key, last_value = self.cache_data.popitem()
                 print("DISCARD: {}". format(last_key))
 
