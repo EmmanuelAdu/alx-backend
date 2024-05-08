@@ -47,13 +47,7 @@ class LIFOCache(BaseCaching):
         :param key: key to retrieve the item from
         :return: the item if it is in the cache, None otherwise
         """
-        if key is None:
+        if key is None or key not in self.cache_data.keys():
             return None
         else:
-            if key in self.cache_data.keys():
-                # if the key is in the cache, move it to the top
-                item = self.cache_data.pop(key)
-                self.cache_data[key] = item
-                return item
-            else:
-                return None
+            return self.cache_data.get(key)
