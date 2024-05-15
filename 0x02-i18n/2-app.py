@@ -19,7 +19,6 @@ class Config(object):
 
 babel = Babel()
 
-
 def get_locale() -> str:
     """
     Select the best match among the available languages based on the
