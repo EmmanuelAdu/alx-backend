@@ -6,6 +6,9 @@ from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
+app = Flask(__name__)
+
+
 class Config(object):
     '''Configure available languages'''
 
@@ -14,18 +17,9 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-# configure the app
-app = Flask(__name__)
+babel = Babel()
 
 
-app.config.from_object(Config)
-babel = Babel(app)
-
-
-# This function is called by Flask-Babel to determine which language to use.
-# It uses the Accept-Language header from the request to find the best match
-# among the available languages.
-@babel.localeselector
 def get_locale() -> str:
     """
     Select the best match among the available languages based on the
@@ -35,6 +29,10 @@ def get_locale() -> str:
         The language code for the selected language.
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+app.config.from_object(Config)
+babel.init_app(app, locale_selector=get_locale)
 
 
 @app.route("/")
